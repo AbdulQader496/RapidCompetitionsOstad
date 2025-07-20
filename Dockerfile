@@ -1,3 +1,13 @@
+FROM python:3-slim
+
+# This Dockerfile is used to build a Python environment for the Rapid Competitions Ostad project.
+
+WORKDIR /app
+
+COPY requirements.txt .
+
+# Expose port 8000 for the Django application
+EXPOSE 8000
 
 
 
