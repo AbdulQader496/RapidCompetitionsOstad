@@ -6,11 +6,24 @@ WORKDIR /app
 
 COPY requirements.txt .
 
+# Install system dependencies required for building Python packages
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    zlib1g-dev \
+    libffi-dev \
+    libpq-dev \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+
+RUN python -m pip install -r requirements.txt
+
+COPY . /app
+
 # Expose port 8000 for the Django application
 EXPOSE 8000
 
-
-
+# RUN the file
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 
 # # For more information, please refer to https://aka.ms/vscode-docker-python
 # FROM python:3-slim
